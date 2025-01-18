@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <regex>
 
 class WeatherDisplay {
     WeatherAPI& api;
@@ -15,16 +16,19 @@ public:
     std::string displayWeather(const std::string& city) {
         std::string response = api.fetchWeather(city);
 
-        // Mock response example: "temp:15.0"
-        double temp = 0.0;
-        std::istringstream stream(response);
-        std::string key;
-        char delimiter;
-        stream >> key >> delimiter >> temp;
+        // Extract temperature from the JSON response
+        std::regex tempRegex(R"("temp":([-+]?[0-9]*\.?[0-9]+))");
+        std::smatch match;
 
-        std::ostringstream result;
-        result << "City: " << temp << " °C";
-        return result.str();
+        if (std::regex_search(response, match, tempRegex)) {
+            double temp = std::stod(match[1].str());
+
+            std::ostringstream result;
+            result << "City: " << temp << " °C";
+            return result.str();
+        }
+
+        return "Error: Unable to parse temperature.";
     }
 };
 
