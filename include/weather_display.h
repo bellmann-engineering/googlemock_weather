@@ -24,7 +24,7 @@ public:
             double temp = std::stod(match[1].str());
 
             std::ostringstream result;
-            result << "City: " << temp << " °C";
+            result << city << ": " << temp << " °C";
             return result.str();
         }
 
