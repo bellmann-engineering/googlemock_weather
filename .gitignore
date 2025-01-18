@@ -1,0 +1,9 @@
+# Ignore build directory and its contents
+build/
+
+# Ignore object files
+*.o
+
+# Ignore binary files
+weather_app
+weather_test
