@@ -9,7 +9,7 @@ TEST(WeatherDisplayTest, DisplaysCorrectWeather) {
     // Mock the API response
     EXPECT_CALL(mockApi, fetchWeather("Wolfsburg"))
         .Times(1)
-        .WillOnce(testing::Return("{\"temp\":15.0}"));  // Correctly escaped JSON
+        .WillOnce(testing::Return("{\"temp\":15.0}")); 
 
     std::string expected = "Wolfsburg: 15 °C";
 
